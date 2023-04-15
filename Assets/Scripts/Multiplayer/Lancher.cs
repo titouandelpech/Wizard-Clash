@@ -12,6 +12,8 @@ public class Lancher : MonoBehaviourPunCallbacks
     [SerializeField] Button ConnectButton;
     [SerializeField] TMP_Text FeedbackText;
 
+    [SerializeField] string sceneToLoad;
+    
     byte maxPlayerPerRoom = 2;
 
     bool isConnecting;
@@ -89,8 +91,8 @@ public class Lancher : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
-            Debug.Log("Loading level");
-            PhotonNetwork.LoadLevel("SampleScene");
+            Debug.Log("Loading level " + sceneToLoad);
+            PhotonNetwork.LoadLevel(sceneToLoad);
         }
     }
 
