@@ -2,6 +2,7 @@ using UnityEngine;
 using Photon.Realtime;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
