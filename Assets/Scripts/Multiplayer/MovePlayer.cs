@@ -8,7 +8,6 @@ public class MovePlayer : MonoBehaviourPunCallbacks
     public float moveSpeed = 5.0f;
     private Rigidbody rb;
     private Vector3 moveDirection;
-    [SerializeField] SyncText playerNameText;
 
     private void Start()
     {
@@ -20,23 +19,8 @@ public class MovePlayer : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             ProcessInput();
-            CheckKeyDown();
         }
     }
-
-    void CheckKeyDown()
-    {
-        foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
-        {
-            if (Input.GetKeyDown(keyCode))
-            {
-                Debug.Log("Touche enfoncée: " + keyCode);
-                playerNameText.UpdateText(keyCode.ToString());
-                break;
-            }
-        }
-    }
-
 
     void ProcessInput()
     {
