@@ -10,7 +10,6 @@ public class SyncText : MonoBehaviourPun
     void Awake()
     {
         myText = GetComponent<TMP_Text>();
-        nickname = PhotonNetwork.LocalPlayer.NickName;
     }
 
     [PunRPC]
@@ -21,9 +20,13 @@ public class SyncText : MonoBehaviourPun
         setNewText += newText;
         myText.text = setNewText;
     }
-
     public void UpdateText(string newText)
     {
         photonView.RPC("SetText", RpcTarget.All, newText);
+    }
+
+    public void setNickname(string newNickname)
+    {
+        nickname = newNickname;
     }
 }

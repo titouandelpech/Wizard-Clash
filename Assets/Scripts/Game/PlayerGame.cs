@@ -19,7 +19,8 @@ public enum ValueEditMode
 public class PlayerGame : MonoBehaviourPunCallbacks
 {
     [SerializeField] SyncText playerNameText;
-
+    
+    private string Name;
     private const int MaxHealth = 100;
     private const int MaxMana = 100;
 
@@ -42,6 +43,8 @@ public class PlayerGame : MonoBehaviourPunCallbacks
     {
         Health = MaxHealth;
         Mana = MaxMana;
+        Name = PhotonNetwork.LocalPlayer.NickName;
+        UpdateName(Name);
         playerNameText.UpdateText("<color=red>" + Health + "/" + MaxHealth + "</color>");
     }
 
@@ -89,7 +92,6 @@ public class PlayerGame : MonoBehaviourPunCallbacks
                 break;
         }
     }
-
     public void EditPlayerData(int valueChange, PlayerData changeValue, ValueEditMode valueEditMode)
     {
         switch (valueEditMode)
@@ -111,4 +113,14 @@ public class PlayerGame : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
+    void SetName(string newName)
+    {
+        Name = newName;
+        playerNameText.setNickname(newName);
+    }
+    public void UpdateName(string newName)
+    {
+        photonView.RPC("SetName", RpcTarget.All, newName);
+    }
 }
