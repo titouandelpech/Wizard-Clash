@@ -29296,6 +29296,7 @@ MonoBehaviour:
   flash: {fileID: 1418520085859340, guid: f68d36db88ab7d146b688c487aaace5c, type: 3}
   Detached: []
   damage: 9
+  target: {fileID: 703022059505187029, guid: 6bed24cef17986642b0cac9c94c50344, type: 3}
 --- !u!199 &199345261193979196
 ParticleSystemRenderer:
   serializedVersion: 6
