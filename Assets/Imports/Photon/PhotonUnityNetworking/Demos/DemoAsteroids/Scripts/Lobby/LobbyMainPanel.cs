@@ -127,6 +127,8 @@ namespace Photon.Pun.Demo.Asteroids
             {
                 GameObject entry = Instantiate(PlayerListEntryPrefab);
                 entry.transform.SetParent(InsideRoomPanel.transform);
+                Vector3 anchoredPosition3D = entry.transform.GetComponent<RectTransform>().anchoredPosition3D;
+                entry.transform.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(anchoredPosition3D.x, anchoredPosition3D.y, 0);
                 entry.transform.localScale = Vector3.one;
                 entry.GetComponent<PlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
 
@@ -165,6 +167,8 @@ namespace Photon.Pun.Demo.Asteroids
         {
             GameObject entry = Instantiate(PlayerListEntryPrefab);
             entry.transform.SetParent(InsideRoomPanel.transform);
+            Vector3 anchoredPosition3D = entry.transform.GetComponent<RectTransform>().anchoredPosition3D;
+            entry.transform.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(anchoredPosition3D.x, anchoredPosition3D.y, 0);
             entry.transform.localScale = Vector3.one;
             entry.GetComponent<PlayerListEntry>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
 
@@ -369,6 +373,8 @@ namespace Photon.Pun.Demo.Asteroids
             {
                 GameObject entry = Instantiate(RoomListEntryPrefab);
                 entry.transform.SetParent(RoomListContent.transform);
+                Vector3 anchoredPosition3D = entry.transform.GetComponent<RectTransform>().anchoredPosition3D;
+                entry.transform.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(anchoredPosition3D.x, anchoredPosition3D.y, 0);
                 entry.transform.localScale = Vector3.one;
                 entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers);
 

@@ -46,6 +46,8 @@ public class PlayerGame : MonoBehaviourPunCallbacks
         Name = PhotonNetwork.LocalPlayer.NickName;
         UpdateName(Name);
         playerNameText.UpdateText("<color=red>" + Health + "/" + MaxHealth + "</color>");
+        if (!photonView.IsMine)
+            tag = "Target";
     }
 
     void Update()
@@ -67,10 +69,10 @@ public class PlayerGame : MonoBehaviourPunCallbacks
 
                 if (keyCode == KeyCode.Return)
                 {
-                    foreach (MovePlayer player in FindObjectsByType<MovePlayer>(FindObjectsSortMode.None))
+                    foreach (PlayerGame player in FindObjectsByType<PlayerGame>(FindObjectsSortMode.None))
                     {
                         if (!player.photonView.IsMine)
-                            player.GetComponentInChildren<PlayerGame>().EditPlayerData(-10, PlayerData.Health, ValueEditMode.Add);
+                            player.EditPlayerData(-10, PlayerData.Health, ValueEditMode.Add);
                     }
                 }
                 break;

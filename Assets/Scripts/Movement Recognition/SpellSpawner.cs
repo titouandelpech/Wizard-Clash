@@ -1,8 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellSpawner : MonoBehaviour
+public class SpellSpawner : MonoBehaviourPunCallbacks
 {
     public List<GameObject> objects;
     public GameObject Target;
@@ -24,7 +25,8 @@ public class SpellSpawner : MonoBehaviour
         {
             if (objectName == item.name)
             {
-                var go = Instantiate(item, Target.transform.position,  Target.transform.rotation) as GameObject;
+                //var go = Instantiate(item, Target.transform.position,  Target.transform.rotation) as GameObject;
+                PhotonNetwork.Instantiate(item.name, Target.transform.position, Target.transform.rotation);
             }
         }
     }

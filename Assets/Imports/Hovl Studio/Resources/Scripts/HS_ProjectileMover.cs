@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HS_ProjectileMover : MonoBehaviour
+public class HS_ProjectileMover : MonoBehaviourPunCallbacks
 {
     public float speed = 15f;
     public float hitOffset = 0f;
@@ -43,7 +44,7 @@ public class HS_ProjectileMover : MonoBehaviour
 
    void FixedUpdate()
 {
-    if (target != null)
+    if (target != null && photonView.IsMine)
     {
         // Calculate the direction to the target
         Vector3 directionToTarget = target.transform.position - transform.position;
