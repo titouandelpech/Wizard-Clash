@@ -44,7 +44,7 @@ public class HS_ProjectileMover : MonoBehaviourPunCallbacks
 
    void FixedUpdate()
 {
-    if (target != null && photonView.IsMine)
+    if (target != null && (!photonView || photonView.IsMine))
     {
         // Calculate the direction to the target
         Vector3 directionToTarget = target.transform.position - transform.position;

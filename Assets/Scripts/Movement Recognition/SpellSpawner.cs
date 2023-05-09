@@ -25,8 +25,10 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
         {
             if (objectName == item.name)
             {
-                //var go = Instantiate(item, Target.transform.position,  Target.transform.rotation) as GameObject;
-                PhotonNetwork.Instantiate(item.name, Target.transform.position, Target.transform.rotation);
+                if (PhotonNetwork.OfflineMode)
+                    Instantiate(item, Target.transform.position,  Target.transform.rotation);
+                if (!PhotonNetwork.OfflineMode)
+                    PhotonNetwork.Instantiate(item.name, Target.transform.position, Target.transform.rotation);
             }
         }
     }
