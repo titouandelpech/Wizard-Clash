@@ -43,8 +43,11 @@ public class PlayerGame : MonoBehaviourPunCallbacks
     {
         Health = MaxHealth;
         Mana = MaxMana;
-        Name = PhotonNetwork.LocalPlayer.NickName;
-        UpdateName(Name);
+        if (photonView.IsMine)
+        {
+            Name = PhotonNetwork.LocalPlayer.NickName;
+            UpdateName(Name);
+        }
         playerNameText.UpdateText("<color=red>" + Health + "/" + MaxHealth + "</color>");
         if (!photonView.IsMine)
             tag = "Target";

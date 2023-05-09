@@ -9,6 +9,8 @@ public class VRArmIKController : MonoBehaviourPunCallbacks
 
     private void OnAnimatorIK(int layerIndex)
     {
+        if (!leftHandTarget || !rightHandTarget) return;
+
         // Set the IK goals for both hands
         animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
         animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);

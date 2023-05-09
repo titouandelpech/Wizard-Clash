@@ -53,6 +53,13 @@ Shader "Hovl/Particles/Add_Fresnel"
 				#pragma multi_compile_fog
 				#include "UnityShaderVariables.cginc"
 
+				#if !defined(UNITY_SETUP_INSTANCE_ID)
+					#if defined(UNITY_VERTEX_OUTPUT_INSTANCE_ID) && defined(UNITY_VERTEX_INPUT_INSTANCE_ID)
+						#define UNITY_SETUP_INSTANCE_ID(input) UNITY_VERTEX_OUTPUT_INSTANCE_ID = UNITY_VERTEX_INPUT_INSTANCE_ID
+					#else
+						#define UNITY_SETUP_INSTANCE_ID(input)
+					#endif
+				#endif
 
 				#include "UnityCG.cginc"
 

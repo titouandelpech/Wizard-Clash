@@ -43,42 +43,39 @@ public class HS_ProjectileMover : MonoBehaviourPunCallbacks
 	}
 
    void FixedUpdate()
-{
-    if (target != null && (!photonView || photonView.IsMine))
-    {
-        // Calculate the direction to the target
-        Vector3 directionToTarget = target.transform.position - transform.position;
+   {
+        if (target != null && (!photonView || photonView.IsMine))
+        {
+            // Calculate the direction to the target
+            Vector3 directionToTarget = target.transform.position - transform.position;
 
-        // Normalize the direction to get a unit vector
-        Vector3 normalizedDirection = directionToTarget.normalized;
+            // Normalize the direction to get a unit vector
+            Vector3 normalizedDirection = directionToTarget.normalized;
 
-        // Calculate the distance to the target
-        distance = Vector3.Distance(transform.position, target.transform.position);
+            // Calculate the distance to the target
+            distance = Vector3.Distance(transform.position, target.transform.position);
 
-        // Calculate the amount of movement in the x and z directions
-        float moveAmountX = normalizedDirection.x * speed * Time.deltaTime;
-        float moveAmountZ = normalizedDirection.z * speed * Time.deltaTime;
+            // Calculate the amount of movement in the x and z directions
+            float moveAmountX = normalizedDirection.x * speed * Time.deltaTime;
+            float moveAmountZ = normalizedDirection.z * speed * Time.deltaTime;
 
-        // Calculate the amount of movement in the y direction based on a curve
-        float yCurve = Mathf.Clamp01(1 - (distance / 10f)); // adjust the "10f" value as desired to control the curve
-        float moveAmountY = yCurve * speed * Time.deltaTime;
+            // Calculate the amount of movement in the y direction based on a curve
+            float yCurve = Mathf.Clamp01(1 - (distance / 10f)); // adjust the "10f" value as desired to control the curve
+            float moveAmountY = yCurve * speed * Time.deltaTime;
 
-        // Combine the movement amounts into a single Vector3
-        Vector3 moveAmount = new Vector3(moveAmountX, moveAmountY, moveAmountZ);
+            // Combine the movement amounts into a single Vector3
+            Vector3 moveAmount = new Vector3(moveAmountX, moveAmountY, moveAmountZ);
 
-        // Move the projectile in a curve using Vector3.MoveTowards
-        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveAmount.magnitude);
+            // Move the projectile in a curve using Vector3.MoveTowards
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveAmount.magnitude);
 
-        // Rotate the projectile to face the target
-        transform.LookAt(target.transform);
+            // Rotate the projectile to face the target
+            transform.LookAt(target.transform);
 
-    }
-}
+        }
+   }
 
-
-
-    //https ://docs.unity3d.com/ScriptReference/Rigidbody.OnCollisionEnter.html
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnterLegacy(Collision collision)
     {
         //Lock all axes movement and rotation
         rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -95,6 +92,58 @@ public class HS_ProjectileMover : MonoBehaviourPunCallbacks
             if (UseFirePointRotation) { hitInstance.transform.rotation = gameObject.transform.rotation * Quaternion.Euler(0, 180f, 0); }
             else if (rotationOffset != Vector3.zero) { hitInstance.transform.rotation = Quaternion.Euler(rotationOffset); }
             else { hitInstance.transform.LookAt(contact.point + contact.normal); }
+
+            //Destroy hit effects depending on particle Duration time
+            var hitPs = hitInstance.GetComponent<ParticleSystem>();
+            if (hitPs != null)
+            {
+                Destroy(hitInstance, hitPs.main.duration);
+            }
+            else
+            {
+                var hitPsParts = hitInstance.transform.GetChild(0).GetComponent<ParticleSystem>();
+                Destroy(hitInstance, hitPsParts.main.duration);
+            }
+        }
+
+        //Removing trail from the projectile on cillision enter or smooth removing. Detached elements must have "AutoDestroying script"
+        foreach (var detachedPrefab in Detached)
+        {
+            if (detachedPrefab != null)
+            {
+                detachedPrefab.transform.parent = null;
+                Destroy(detachedPrefab, 1);
+            }
+        }
+        //Destroy projectile on collision
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!photonView)
+            OnCollisionEnterLegacy(collision);
+        else if (photonView.IsMine)
+            photonView.RPC("RPC_OnCollisionEnter", RpcTarget.All, collision.contacts[0].point, collision.contacts[0].normal);
+    }
+
+    [PunRPC]
+    private void RPC_OnCollisionEnter(Vector3 contactPoint, Vector3 contactNormal)
+    {
+        //Lock all axes movement and rotation
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+        speed = 0;
+
+        Quaternion rot = Quaternion.FromToRotation(Vector3.up, contactNormal);
+        Vector3 pos = contactPoint + contactNormal * hitOffset;
+
+        //Spawn hit effect on collision
+        if (hit != null)
+        {
+            var hitInstance = Instantiate(hit, pos, rot);
+            if (UseFirePointRotation) { hitInstance.transform.rotation = gameObject.transform.rotation * Quaternion.Euler(0, 180f, 0); }
+            else if (rotationOffset != Vector3.zero) { hitInstance.transform.rotation = Quaternion.Euler(rotationOffset); }
+            else { hitInstance.transform.LookAt(contactPoint + contactNormal); }
 
             //Destroy hit effects depending on particle Duration time
             var hitPs = hitInstance.GetComponent<ParticleSystem>();
