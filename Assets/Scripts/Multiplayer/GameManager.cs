@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player other)
     {
-        Debug.Log(other.NickName + " just joined the room!");
+        Debug.Log(other.NickName + " just left the room!");
     }
 
     public override void OnLeftRoom()
