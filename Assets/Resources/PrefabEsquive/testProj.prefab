@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8289639180470105711}
   - component: {fileID: 8226252570452725585}
   - component: {fileID: 8343942998661296417}
+  - component: {fileID: 501315653}
   m_Layer: 0
   m_Name: testProj
   m_TagString: Untagged
@@ -5006,10 +5007,32 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8344825008982294129}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e796c5d24d4cab4eb184b43a3b781e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   curve: {fileID: 0}
   speed: 0.1
+--- !u!114 &501315653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8344825008982294129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 152d335778107bc41b0f52fdecbc8304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.5
+  hitOffset: 0
+  UseFirePointRotation: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
+  hit: {fileID: 1570423950586096, guid: 01afa85b461d4dc49ba4530e39b61739, type: 3}
+  flash: {fileID: 1029261581862512, guid: 99649c5fed10ce848a575f679ff0e303, type: 3}
+  Detached: []
+  damage: 0
+  curve: {fileID: 0}
+  curveTarget: 0
