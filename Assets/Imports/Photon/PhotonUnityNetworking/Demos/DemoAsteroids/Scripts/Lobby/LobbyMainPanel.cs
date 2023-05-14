@@ -35,6 +35,7 @@ namespace Photon.Pun.Demo.Asteroids
         public GameObject InsideRoomPanel;
 
         public Button StartGameButton;
+        public Text MapNameText;
         public GameObject PlayerListEntryPrefab;
 
         private Dictionary<string, RoomInfo> cachedRoomList;
@@ -42,6 +43,9 @@ namespace Photon.Pun.Demo.Asteroids
         private Dictionary<int, GameObject> playerListEntries;
 
         [SerializeField] string levelName;
+
+        [SerializeField] public List<string> mapsList;
+        [HideInInspector] public int mapIndex = 0;
 
         #region UNITY
 
@@ -53,6 +57,7 @@ namespace Photon.Pun.Demo.Asteroids
             roomListEntries = new Dictionary<string, GameObject>();
             
             PlayerNameInput.text = "Wizard " + Random.Range(1000, 10000);
+            MapNameText.text = mapsList[mapIndex];
         }
 
         void Start()
@@ -142,6 +147,8 @@ namespace Photon.Pun.Demo.Asteroids
             }
 
             StartGameButton.gameObject.SetActive(CheckPlayersReady());
+            
+            MapNameText.transform.parent.gameObject.SetActive(PhotonNetwork.IsMasterClient);
 
             Hashtable props = new Hashtable
             {
@@ -284,6 +291,13 @@ namespace Photon.Pun.Demo.Asteroids
             PhotonNetwork.CurrentRoom.IsVisible = false;
 
             PhotonNetwork.LoadLevel(levelName);
+        }
+
+        public void OnChangeMap()
+        {
+            mapIndex++;
+            if (mapIndex >= mapsList.Count) mapIndex = 0;
+            MapNameText.text = mapsList[mapIndex];
         }
 
         #endregion

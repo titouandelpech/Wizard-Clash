@@ -8,6 +8,12 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    GameDataKeep gameDataKeep;
+    private void Awake()
+    {
+        gameDataKeep = FindAnyObjectByType<GameDataKeep>();
+    }
+
     public GameObject playerPrefab;
     [SerializeField] string launcherScene;
     GameObject XRSetup;
@@ -26,6 +32,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (playerNb == 0)
         {
+            gameDataKeep.setGameMap(gameDataKeep.mapToLoad);
             XRSetup.transform.position = new Vector3(0, 0, 0);
             wand = PhotonNetwork.Instantiate("Spell Shoot/wand", new Vector3(0.4f, 1.3f, 1), Quaternion.identity, 0).GetComponent<MovementRecognition>();
         } 

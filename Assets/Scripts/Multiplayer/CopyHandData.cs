@@ -21,7 +21,6 @@ public class CopyHandData : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            Debug.Log(LeftHandCopy.transform.position);
             LeftHandCopy.transform.position = LeftHand.transform.position;
             RightHandCopy.transform.position = RightHand.transform.position;
         }
