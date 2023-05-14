@@ -20,7 +20,7 @@ public class CollisionZone : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider target) {
-        if(target.tag == "Player")
+        if(target.tag == "PlayerDetection")
         {
             isActive = true;
          

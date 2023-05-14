@@ -124,12 +124,13 @@ public class HS_ProjectileMover : MonoBehaviourPunCallbacks
         if (!photonView)
             OnCollisionEnterLegacy(collision);
         else if (photonView.IsMine)
-            photonView.RPC("RPC_OnCollisionEnter", RpcTarget.All, collision.contacts[0].point, collision.contacts[0].normal);
+            photonView.RPC("RPC_OnCollisionEnter", RpcTarget.All, collision.contacts[0].point, collision.contacts[0].normal, collision.gameObject.tag);
     }
 
     [PunRPC]
-    private void RPC_OnCollisionEnter(Vector3 contactPoint, Vector3 contactNormal)
+    private void RPC_OnCollisionEnter(Vector3 contactPoint, Vector3 contactNormal, string collisionTag)
     {
+        Debug.Log(collisionTag);
         //Lock all axes movement and rotation
         rb.constraints = RigidbodyConstraints.FreezeAll;
         speed = 0;

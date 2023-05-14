@@ -24,6 +24,10 @@ public class PlayerGame : MonoBehaviourPunCallbacks
     private const int MaxHealth = 100;
     private const int MaxMana = 100;
 
+    public bool isZoneLeft;
+    public bool isZoneRight;
+    public bool isZoneTop;
+
     [SerializeField] private int health;
     [SerializeField] private int mana;
 
@@ -51,6 +55,7 @@ public class PlayerGame : MonoBehaviourPunCallbacks
         playerNameText.UpdateText("<color=red>" + Health + "/" + MaxHealth + "</color>");
         if (!photonView.IsMine)
             tag = "Target";
+        Instantiate(Resources.Load("PrefabEsquive/ZoneDodge"), transform.parent);
     }
 
     void Update()
@@ -67,7 +72,7 @@ public class PlayerGame : MonoBehaviourPunCallbacks
         {
             if (Input.GetKeyDown(keyCode))
             {
-                Debug.Log("Touche enfoncée: " + keyCode);
+                //Debug.Log("Touche enfoncée: " + keyCode);
                 //playerNameText.UpdateText(keyCode.ToString());
 
                 if (keyCode == KeyCode.Return)
