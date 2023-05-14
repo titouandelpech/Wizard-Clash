@@ -5,6 +5,8 @@ using UnityEngine;
 public class CollisionZone : MonoBehaviour
 {
     public int zone;
+    public int count;
+    public bool isActive;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,8 @@ public class CollisionZone : MonoBehaviour
     void OnTriggerEnter(Collider target) {
         if(target.tag == "Player")
         {
+            isActive = true;
+         
             switch (zone) {
                 case 1:
                     Debug.Log("EnterRight");
@@ -37,8 +41,7 @@ public class CollisionZone : MonoBehaviour
         }
     }
     void OnTriggerExit(Collider target) {
-        if(target.tag == "Player")
-        {
+            isActive = false;
             switch (zone) {
                 case 1:
                     Debug.Log("LeaveRight");
@@ -54,5 +57,4 @@ public class CollisionZone : MonoBehaviour
                     break;
             }
         }
-    }
 }
