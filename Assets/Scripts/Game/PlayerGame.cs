@@ -91,6 +91,7 @@ public class PlayerGame : MonoBehaviourPunCallbacks
     [PunRPC]
     void EditPlayerDataRPC(int valueChange, PlayerData changeValue)
     {
+        Debug.Log("Removed " + valueChange + " HP");
         switch (changeValue)
         {
             case PlayerData.Health:
