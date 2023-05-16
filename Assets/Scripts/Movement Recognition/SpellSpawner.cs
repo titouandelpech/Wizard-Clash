@@ -32,21 +32,25 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
             {
                 if (PhotonNetwork.OfflineMode) {
                     GameObject newitem =  Instantiate(item, Target.transform.position,  Target.transform.rotation);
-                    if (WallUp.isHandActive == true) {
-                        newitem.GetComponent<ProjectileSet>().curveTarget = 3;
-                    } else if (WallRight.isHandActive == true) {
-                        newitem.GetComponent<ProjectileSet>().curveTarget = 1;
-                    } else {
-                        newitem.GetComponent<ProjectileSet>().curveTarget = 2;
+                    if (objectName != "O") {
+                        if (WallUp.isHandActive == true) {
+                            newitem.GetComponent<ProjectileSet>().curveTarget = 3;
+                        } else if (WallRight.isHandActive == true) {
+                            newitem.GetComponent<ProjectileSet>().curveTarget = 1;
+                        } else {
+                            newitem.GetComponent<ProjectileSet>().curveTarget = 2;
+                        }
                     }
                 } if (!PhotonNetwork.OfflineMode) {
                     GameObject newitem = PhotonNetwork.Instantiate(item.name, Target.transform.position, Target.transform.rotation);
-                    if (WallUp.isHandActive == true) {
-                        newitem.GetComponent<ProjectileSet>().curveTarget = 3;
-                    } else if (WallRight.isHandActive == true) {
-                        newitem.GetComponent<ProjectileSet>().curveTarget = 1;
-                    } else {
-                        newitem.GetComponent<ProjectileSet>().curveTarget = 2;
+                    if (objectName != "O") {
+                        if (WallUp.isHandActive == true) {
+                            newitem.GetComponent<ProjectileSet>().curveTarget = 3;
+                        } else if (WallRight.isHandActive == true) {
+                            newitem.GetComponent<ProjectileSet>().curveTarget = 1;
+                        } else {
+                            newitem.GetComponent<ProjectileSet>().curveTarget = 2;
+                        }
                     }
                 }
             }
