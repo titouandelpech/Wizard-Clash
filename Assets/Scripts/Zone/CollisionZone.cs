@@ -21,11 +21,11 @@ public class CollisionZone : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider target) {
-        Debug.Log("touché " + target.tag);
+        Debug.Log("touch " + target.tag);
         if(target.tag == "Player")
         {
             isActive = true;
-        } else if (target.tag == "RightHand") {
+        } else if (target.tag == "RightHand" && zone != 3) {
                 isHandActive = true;
                 switch (zone) {
                 case 1:
@@ -62,7 +62,7 @@ public class CollisionZone : MonoBehaviour
         if(target.tag == "PlayerDetection")
         {
             isActive = false;
-        } else if (target.tag == "RightHand") {
+        } else if (target.tag == "RightHand" && zone != 3) {
             isHandActive = false;
             switch (zone) {
             case 1:

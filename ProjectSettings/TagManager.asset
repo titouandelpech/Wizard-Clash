@@ -15,6 +15,8 @@ TagManager:
   - RightHand
   - Spell
   - EnemyZone
+  - Shield
+  - WallUpHand
   layers:
   - Default
   - TransparentFX
