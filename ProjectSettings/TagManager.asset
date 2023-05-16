@@ -6,6 +6,13 @@ TagManager:
   tags:
   - Target
   - PlayerDetection
+  - WallLeft
+  - WallRight
+  - WallUp
+  - CurveUp
+  - CurveLeft
+  - CurveRight
+  - RightHand
   layers:
   - Default
   - TransparentFX
