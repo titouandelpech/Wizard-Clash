@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Target
+  - PlayerDetection
+  - Shield
   layers:
   - Default
   - TransparentFX
