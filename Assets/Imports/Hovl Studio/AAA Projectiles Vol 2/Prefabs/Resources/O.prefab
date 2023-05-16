@@ -4849,7 +4849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 152d335778107bc41b0f52fdecbc8304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 0.4
   hitOffset: 0
   UseFirePointRotation: 0
   rotationOffset: {x: 0, y: 0, z: 0}

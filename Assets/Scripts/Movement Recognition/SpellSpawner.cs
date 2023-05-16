@@ -15,7 +15,7 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
     {
         WallLeft = GameObject.FindWithTag("WallLeft").GetComponent<CollisionZone>();
         WallRight = GameObject.FindWithTag("WallRight").GetComponent<CollisionZone>();
-        WallUp = GameObject.FindWithTag("WallUp").GetComponent<CollisionZone>();
+        WallUp = GameObject.FindWithTag("WallUpHand").GetComponent<CollisionZone>();
     }
 
     // Update is called once per frame
@@ -34,10 +34,13 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
                     GameObject newitem =  Instantiate(item, Target.transform.position,  Target.transform.rotation);
                     if (objectName != "O") {
                         if (WallUp.isHandActive == true) {
+                            Debug.Log("tata");
                             newitem.GetComponent<ProjectileSet>().curveTarget = 3;
                         } else if (WallRight.isHandActive == true) {
+                            Debug.Log("tato");
                             newitem.GetComponent<ProjectileSet>().curveTarget = 1;
                         } else {
+                            Debug.Log("toto");
                             newitem.GetComponent<ProjectileSet>().curveTarget = 2;
                         }
                     }
@@ -45,10 +48,13 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
                     GameObject newitem = PhotonNetwork.Instantiate(item.name, Target.transform.position, Target.transform.rotation);
                     if (objectName != "O") {
                         if (WallUp.isHandActive == true) {
+                            Debug.Log("tata");
                             newitem.GetComponent<ProjectileSet>().curveTarget = 3;
                         } else if (WallRight.isHandActive == true) {
+                            Debug.Log("tato");
                             newitem.GetComponent<ProjectileSet>().curveTarget = 1;
                         } else {
+                            Debug.Log("toto");
                             newitem.GetComponent<ProjectileSet>().curveTarget = 2;
                         }
                     }

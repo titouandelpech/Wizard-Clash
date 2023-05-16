@@ -46,10 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objects:
-  - {fileID: 1698648575761504, guid: cf263124cbe15f448b6a2ec0ef11bd54, type: 3}
-  - {fileID: 1066843573042574, guid: c98ce42aa8b5fb64fa955a3b0924a0e6, type: 3}
-  - {fileID: 1557811069740550, guid: e169186eaec8f4f41936afd7475bf028, type: 3}
-  - {fileID: 1574263468501362, guid: 59642d7f004183544a7459b8e63dcde9, type: 3}
+  - {fileID: 1698648575761504, guid: 92c38e4cf84e3a64b886386e8075ea46, type: 3}
+  - {fileID: 1066843573042574, guid: 8d020dd3cc7568646a0f0cb9ca83a3c8, type: 3}
+  - {fileID: 1557811069740550, guid: b1b5794928b1b7a4082404034e1fefd6, type: 3}
   Target: {fileID: 0}
   WallLeft: {fileID: 0}
   WallRight: {fileID: 0}
