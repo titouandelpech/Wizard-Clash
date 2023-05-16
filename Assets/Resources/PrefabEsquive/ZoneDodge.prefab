@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1120664765228515425}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: WallRight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,6 +113,7 @@ MonoBehaviour:
   zone: 2
   count: 0
   isActive: 0
+  isHandActive: 0
 --- !u!1 &1120664766399592025
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +129,7 @@ GameObject:
   - component: {fileID: 1120664766399592022}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: WallUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -226,6 +227,7 @@ MonoBehaviour:
   zone: 3
   count: 0
   isActive: 0
+  isHandActive: 0
 --- !u!1 &1120664766543276138
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,7 +243,7 @@ GameObject:
   - component: {fileID: 1120664766543276135}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: WallLeft
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -339,6 +341,7 @@ MonoBehaviour:
   zone: 1
   count: 0
   isActive: 0
+  isHandActive: 0
 --- !u!1 &8801814338191905715
 GameObject:
   m_ObjectHideFlags: 0
