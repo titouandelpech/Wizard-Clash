@@ -56,6 +56,7 @@ public class PlayerGame : MonoBehaviourPunCallbacks
         }
         playerNameText.UpdateText("<color=red>" + Health + "/" + MaxHealth + "</color>");
         GameObject zone = Instantiate(Resources.Load("PrefabEsquive/ZoneDodge"), transform.parent) as GameObject;
+        //GameObject shield = Instantiate(Resources.Load("Shield/Shield"), transform.parent) as GameObject;
         if (!photonView.IsMine)
         {
             zone.tag = "EnemyZone";
