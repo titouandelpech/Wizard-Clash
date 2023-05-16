@@ -17,12 +17,29 @@ public class ProjectileSet : MonoBehaviourPunCallbacks
     private GameObject target;
     private float distance;
     public QuadraticCurve curve;
+    public int curveTarget;
 
     private float sampleTime;
 
     void Start()
     {
         target =  GameObject.FindWithTag("Target");
+
+        switch (curveTarget) {
+                case 1:
+                    curve = GameObject.FindWithTag("CurveRight").GetComponent<QuadraticCurve>();
+                    break;
+                case 2:
+                    curve = GameObject.FindWithTag("CurveLeft").GetComponent<QuadraticCurve>();
+                    break;
+                case 3:
+                    curve = GameObject.FindWithTag("CurveUp").GetComponent<QuadraticCurve>();
+                    break;
+                default:
+                    curve = GameObject.FindWithTag("CurveRight").GetComponent<QuadraticCurve>();
+                    break;
+            }
+        //curve = GameObject.FindWithTag("CurveRight").GetComponent<QuadraticCurve>();
         rb = GetComponent<Rigidbody>();
         if (flash != null)
         {
@@ -54,7 +71,7 @@ public class ProjectileSet : MonoBehaviourPunCallbacks
             transform.forward = curve.evaluateA(sampleTime + 0.001f) - transform.position;
 
             if (sampleTime >= 1f) {
-                Debug.Log("pif pas pouf");
+               //Debug.Log("pif pas pouf");
                 Destroy(gameObject);
             }
 

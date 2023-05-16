@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6358313894070926409}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.5, z: 8}
+  m_LocalPosition: {x: 0, y: 3.63, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 6358313894110389497}
   m_Layer: 0
   m_Name: Curve_up
-  m_TagString: Untagged
+  m_TagString: CurveUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 6358313895260281886}
   m_Layer: 0
   m_Name: Curve_right
-  m_TagString: Untagged
+  m_TagString: CurveRight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 6358313895819186143}
   m_Layer: 0
   m_Name: Curve_left
-  m_TagString: Untagged
+  m_TagString: CurveLeft
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
