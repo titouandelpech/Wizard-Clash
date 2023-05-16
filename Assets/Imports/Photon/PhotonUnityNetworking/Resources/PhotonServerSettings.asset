@@ -47,6 +47,8 @@ MonoBehaviour:
   - setGameMap
   - setGameMapRPC
   - RPCActivateShield
+  - RPC_OnCollisionEnterTrigger
+  - SetZoneBoolRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

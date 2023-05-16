@@ -25,9 +25,9 @@ public class PlayerGame : MonoBehaviourPunCallbacks
     private const int MaxHealth = 100;
     private const int MaxMana = 100;
 
-    public bool isZoneLeft;
-    public bool isZoneRight;
-    public bool isZoneTop;
+    public bool isZoneLeft = true;
+    public bool isZoneRight = true;
+    public bool isZoneTop = true;
 
     [SerializeField] private int health;
     [SerializeField] private int mana;
@@ -55,12 +55,16 @@ public class PlayerGame : MonoBehaviourPunCallbacks
             Instantiate(Resources.Load("PrefabEsquive/Curve"), transform.parent);
         }
         playerNameText.UpdateText("<color=red>" + Health + "/" + MaxHealth + "</color>");
-        GameObject zone = Instantiate(Resources.Load("PrefabEsquive/ZoneDodge"), transform.parent) as GameObject;
+        GameObject zones = Instantiate(Resources.Load("PrefabEsquive/ZoneDodge"), transform.parent) as GameObject;
+        foreach(CollisionZone zone in zones.transform.GetComponentsInChildren<CollisionZone>())
+        {
+            zone.player = this;
+        }
         //GameObject shield = Instantiate(Resources.Load("Shield/Shield"), transform.parent) as GameObject;
         if (!photonView.IsMine)
         {
-            zone.tag = "EnemyZone";
-            gameObject.tag = "Target";
+            zones.tag = "EnemyZone";
+            tag = "Target";
         }
     }
 
@@ -139,5 +143,20 @@ public class PlayerGame : MonoBehaviourPunCallbacks
     public void UpdateName(string newName)
     {
         photonView.RPC("SetName", RpcTarget.All, newName);
+    }
+
+    [PunRPC]
+    void SetZoneBoolRPC(string zone, bool isActive)
+    {
+        if (zone == "WallLeft")
+            isZoneLeft = isActive;
+        if (zone == "WallRight")
+            isZoneRight = isActive;
+        if (zone == "WallUp")
+            isZoneTop = isActive;
+    }
+    public void SetZoneBool(string zone, bool isActive)
+    {
+        photonView.RPC("SetZoneBoolRPC", RpcTarget.All, zone, isActive);
     }
 }

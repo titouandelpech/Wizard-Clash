@@ -218,9 +218,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 3387646645434777778}
-  isZoneLeft: 0
-  isZoneRight: 0
-  isZoneTop: 0
+  isZoneLeft: 1
+  isZoneRight: 1
+  isZoneTop: 1
   health: 0
   mana: 0
 --- !u!114 &3934851687592320364

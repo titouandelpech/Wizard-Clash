@@ -114,6 +114,7 @@ MonoBehaviour:
   count: 0
   isActive: 0
   isHandActive: 0
+  player: {fileID: 0}
 --- !u!1 &1120664766399592025
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,6 +229,7 @@ MonoBehaviour:
   count: 0
   isActive: 0
   isHandActive: 0
+  player: {fileID: 0}
 --- !u!1 &1120664766543276138
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,6 +344,7 @@ MonoBehaviour:
   count: 0
   isActive: 0
   isHandActive: 0
+  player: {fileID: 0}
 --- !u!1 &5543177152594615363
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,6 +459,7 @@ MonoBehaviour:
   count: 0
   isActive: 0
   isHandActive: 0
+  player: {fileID: 0}
 --- !u!1 &8801814338191905715
 GameObject:
   m_ObjectHideFlags: 0

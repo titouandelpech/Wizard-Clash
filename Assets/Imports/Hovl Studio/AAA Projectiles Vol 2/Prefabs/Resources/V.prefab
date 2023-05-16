@@ -4865,6 +4865,7 @@ MonoBehaviour:
   Detached:
   - {fileID: 1274617587750062}
   damage: 10
+  triggered: 0
   curve: {fileID: 0}
   curveTarget: 0
 --- !u!199 &199989270669818508
@@ -5060,7 +5061,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1066843573042574}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 

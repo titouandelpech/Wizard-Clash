@@ -36,6 +36,7 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
                         if (WallUp.isHandActive == true) {
                             Debug.Log("tata");
                             newitem.GetComponent<ProjectileSet>().curveTarget = 3;
+                            newitem.gameObject.tag = "SpellUp";
                         } else if (WallRight.isHandActive == true) {
                             Debug.Log("tato");
                             newitem.GetComponent<ProjectileSet>().curveTarget = 1;
@@ -50,6 +51,7 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
                         if (WallUp.isHandActive == true) {
                             Debug.Log("tata");
                             newitem.GetComponent<ProjectileSet>().curveTarget = 3;
+                            newitem.gameObject.tag = "SpellUp";
                         } else if (WallRight.isHandActive == true) {
                             Debug.Log("tato");
                             newitem.GetComponent<ProjectileSet>().curveTarget = 1;

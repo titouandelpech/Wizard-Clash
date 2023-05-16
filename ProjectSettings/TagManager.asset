@@ -17,6 +17,7 @@ TagManager:
   - EnemyZone
   - Shield
   - WallUpHand
+  - SpellUp
   layers:
   - Default
   - TransparentFX

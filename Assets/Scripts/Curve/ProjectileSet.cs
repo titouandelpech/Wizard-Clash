@@ -14,6 +14,7 @@ public class ProjectileSet : MonoBehaviourPunCallbacks
     private Rigidbody rb;
     public GameObject[] Detached;
     public int damage;
+    public bool triggered = false;
     private GameObject target;
     private float distance;
     public QuadraticCurve curve;
@@ -70,7 +71,7 @@ public class ProjectileSet : MonoBehaviourPunCallbacks
             transform.position = curve.evaluateA(sampleTime);
             transform.forward = curve.evaluateA(sampleTime + 0.001f) - transform.position;
 
-            if (sampleTime >= 1f) {
+            if (sampleTime >= 1.5f) {
                //Debug.Log("pif pas pouf");
                 Destroy(gameObject);
             }
@@ -128,7 +129,7 @@ public class ProjectileSet : MonoBehaviourPunCallbacks
             OnCollisionEnterLegacy(collision);
         else if (photonView.IsMine)
         {
-            photonView.RPC("RPC_OnCollisionEnter", RpcTarget.All, collision.contacts[0].point, collision.contacts[0].normal);
+            OnCollisionProjectile(collision.contacts[0].point, collision.contacts[0].normal);
             foreach (PlayerGame player in FindObjectsByType<PlayerGame>(FindObjectsSortMode.None))
             {
                 if (!player.photonView.IsMine)
@@ -138,7 +139,7 @@ public class ProjectileSet : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    private void RPC_OnCollisionEnter(Vector3 contactPoint, Vector3 contactNormal)
+    private void RPC_OnCollisionEnterTrigger(Vector3 contactPoint, Vector3 contactNormal)
     {
         //Lock all axes movement and rotation
         rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -179,5 +180,11 @@ public class ProjectileSet : MonoBehaviourPunCallbacks
         }
         //Destroy projectile on collision
         Destroy(gameObject);
+    }
+
+    public void OnCollisionProjectile(Vector3 contactPoint, Vector3 contactNormal)
+    {
+        triggered = true;
+        photonView.RPC("RPC_OnCollisionEnterTrigger", RpcTarget.All, contactPoint, contactNormal);
     }
 }

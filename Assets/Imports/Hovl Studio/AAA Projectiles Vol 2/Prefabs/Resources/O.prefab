@@ -4857,6 +4857,7 @@ MonoBehaviour:
   flash: {fileID: 1179295499806372, guid: a18abcc036ab57445b15bc526991da46, type: 3}
   Detached: []
   damage: 10
+  triggered: 0
   curve: {fileID: 0}
   curveTarget: 0
 --- !u!199 &199286290415937754
