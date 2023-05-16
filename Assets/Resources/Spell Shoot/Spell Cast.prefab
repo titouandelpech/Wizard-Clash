@@ -51,6 +51,9 @@ MonoBehaviour:
   - {fileID: 1557811069740550, guid: e169186eaec8f4f41936afd7475bf028, type: 3}
   - {fileID: 1574263468501362, guid: 59642d7f004183544a7459b8e63dcde9, type: 3}
   Target: {fileID: 0}
+  WallLeft: {fileID: 0}
+  WallRight: {fileID: 0}
+  WallUp: {fileID: 0}
 --- !u!114 &-8623381592750143318
 MonoBehaviour:
   m_ObjectHideFlags: 0

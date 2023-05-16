@@ -2,6 +2,7 @@ using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum PlayerData
@@ -51,11 +52,15 @@ public class PlayerGame : MonoBehaviourPunCallbacks
         {
             Name = PhotonNetwork.LocalPlayer.NickName;
             UpdateName(Name);
+            Instantiate(Resources.Load("PrefabEsquive/Curve"), transform.parent);
         }
         playerNameText.UpdateText("<color=red>" + Health + "/" + MaxHealth + "</color>");
+        GameObject zone = Instantiate(Resources.Load("PrefabEsquive/ZoneDodge"), transform.parent) as GameObject;
         if (!photonView.IsMine)
-            tag = "Target";
-        Instantiate(Resources.Load("PrefabEsquive/ZoneDodge"), transform.parent);
+        {
+            zone.tag = "EnemyZone";
+            gameObject.tag = "Target";
+        }
     }
 
     void Update()

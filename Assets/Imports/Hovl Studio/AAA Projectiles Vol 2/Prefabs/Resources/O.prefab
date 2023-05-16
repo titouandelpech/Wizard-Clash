@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4422625360615546}
   - component: {fileID: 198463773618890346}
   - component: {fileID: 114103510070146774}
+  - component: {fileID: -7391672357263320180}
   - component: {fileID: 199286290415937754}
   - component: {fileID: 108874886764331828}
   - component: {fileID: 54785160050736224}
@@ -4823,7 +4824,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1698648575761504}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 605a456cfc02f6b499a64717539a27e8, type: 3}
   m_Name: 
@@ -4836,6 +4837,28 @@ MonoBehaviour:
   flash: {fileID: 1179295499806372, guid: a18abcc036ab57445b15bc526991da46, type: 3}
   Detached: []
   damage: 10
+--- !u!114 &-7391672357263320180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698648575761504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 152d335778107bc41b0f52fdecbc8304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 15
+  hitOffset: 0
+  UseFirePointRotation: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
+  hit: {fileID: 1438542530079480, guid: 21710859533a00746ad2bdd323061a2d, type: 3}
+  flash: {fileID: 1179295499806372, guid: a18abcc036ab57445b15bc526991da46, type: 3}
+  Detached: []
+  damage: 10
+  curve: {fileID: 0}
+  curveTarget: 0
 --- !u!199 &199286290415937754
 ParticleSystemRenderer:
   serializedVersion: 6

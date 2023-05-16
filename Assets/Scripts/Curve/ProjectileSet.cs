@@ -127,7 +127,14 @@ public class ProjectileSet : MonoBehaviourPunCallbacks
         if (!photonView)
             OnCollisionEnterLegacy(collision);
         else if (photonView.IsMine)
+        {
             photonView.RPC("RPC_OnCollisionEnter", RpcTarget.All, collision.contacts[0].point, collision.contacts[0].normal);
+            foreach (PlayerGame player in FindObjectsByType<PlayerGame>(FindObjectsSortMode.None))
+            {
+                if (!player.photonView.IsMine)
+                    player.EditPlayerData(-damage, PlayerData.Health, ValueEditMode.Add);
+            }
+        }
     }
 
     [PunRPC]

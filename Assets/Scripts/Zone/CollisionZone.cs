@@ -21,6 +21,7 @@ public class CollisionZone : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider target) {
+        Debug.Log("touché " + target.tag);
         if(target.tag == "Player")
         {
             isActive = true;
@@ -40,7 +41,7 @@ public class CollisionZone : MonoBehaviour
                     Debug.Log("Wtf");
                     break;
             }
-            }
+        }
             /*switch (zone) {
                 case 1:
                     Debug.Log("EnterRight");
@@ -58,26 +59,26 @@ public class CollisionZone : MonoBehaviour
         
     }
     void OnTriggerExit(Collider target) {
-            if(target.tag == "PlayerDetection")
-            {
-                isActive = false;
-            } else if (target.tag == "RightHand") {
-                isHandActive = false;
-                switch (zone) {
-                case 1:
-                    Debug.Log("LeaveRight");
-                    break;
-                case 2:
-                    Debug.Log("LeaveLeft");
-                    break;
-                case 3:
-                    Debug.Log("LeaveTop");
-                    break;
-                default:
-                    Debug.Log("Wtf");
-                    break;
+        if(target.tag == "PlayerDetection")
+        {
+            isActive = false;
+        } else if (target.tag == "RightHand") {
+            isHandActive = false;
+            switch (zone) {
+            case 1:
+                Debug.Log("LeaveRight");
+                break;
+            case 2:
+                Debug.Log("LeaveLeft");
+                break;
+            case 3:
+                Debug.Log("LeaveTop");
+                break;
+            default:
+                Debug.Log("Wtf");
+                break;
             }
-            }
+        }
             /*switch (zone) {
                 case 1:
                     Debug.Log("LeaveRight");
