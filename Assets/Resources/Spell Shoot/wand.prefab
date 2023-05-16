@@ -340,6 +340,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  blockSpells: 0
 --- !u!114 &-2878591524575434146
 MonoBehaviour:
   m_ObjectHideFlags: 0

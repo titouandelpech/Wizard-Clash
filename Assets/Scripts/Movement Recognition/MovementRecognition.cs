@@ -29,6 +29,8 @@ public class MovementRecognition : MonoBehaviour
     private List<Gesture> trainingSet = new List<Gesture>();
     private bool isMoving = false;
     private List<Vector3> positionsList = new List<Vector3>();
+
+    [HideInInspector] public bool blockSpells = false;
    
     // Start is called before the first frame update
     void Start()
@@ -87,7 +89,7 @@ public class MovementRecognition : MonoBehaviour
             string fileName = Application.persistentDataPath  + "/" + newGestureName + ".xml";
             GestureIO.WriteGesture(pointArray, newGestureName, fileName);
         }
-        else
+        else if (!blockSpells)
         {
             Result result = PointCloudRecognizer.Classify(newGesture, trainingSet.ToArray());
             Debug.Log(result.GestureClass + result.Score);

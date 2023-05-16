@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using Photon.Pun.UtilityScripts;
 using System.Collections.Generic;
+using System.Collections;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -19,6 +20,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     GameObject XRSetup;
     [SerializeField] List<GameObject> listPlayerModels;
     [SerializeField] Material transparentCharacterMaterial;
+    MovementRecognition wand;
+    PlayerGame myPlayer;
+    PlayerGame otherPlayer;
 
     void Start()
     {
@@ -26,7 +30,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         XRSetup = GameObject.Find("Complete XR Origin Set Up");
         int playerNb = PhotonNetwork.LocalPlayer.GetPlayerNumber();
         
-        MovementRecognition wand = null;
+        wand = null;
         CopyHandData copyHands = PhotonNetwork.Instantiate("Multiplayer/CopyHandsData", Vector3.zero, Quaternion.identity, 0).GetComponent<CopyHandData>();
         Quaternion playerRotation = Quaternion.identity;
 
@@ -35,13 +39,21 @@ public class GameManager : MonoBehaviourPunCallbacks
             gameDataKeep.setGameMap(gameDataKeep.mapToLoad);
             XRSetup.transform.position = new Vector3(0, 0, 0);
             wand = PhotonNetwork.Instantiate("Spell Shoot/wand", new Vector3(0.4f, 1.3f, 1), Quaternion.identity, 0).GetComponent<MovementRecognition>();
-        } 
+            
+            //Transform CanvasEndGame = transform.Find("CanvasEndGame");
+            //CanvasEndGame.position = new Vector3(CanvasEndGame.position.x, 1.9f, CanvasEndGame.position.z);
+            //CanvasEndGame.rotation = Quaternion.Euler(CanvasEndGame.rotation.x, 0, CanvasEndGame.rotation.z);
+        }
         else
         {
-            XRSetup.transform.position = new Vector3(0, 0, 8);
+            XRSetup.transform.position = new Vector3(0, 0, 16);
             playerRotation = Quaternion.Euler(0, 180, 0);
             XRSetup.transform.rotation = playerRotation;
-            wand = PhotonNetwork.Instantiate("Spell Shoot/wand", new Vector3(-0.4f, 1.3f, 7), Quaternion.identity, 0).GetComponent<MovementRecognition>();
+            wand = PhotonNetwork.Instantiate("Spell Shoot/wand", new Vector3(-0.4f, 1.3f, 15), Quaternion.identity, 0).GetComponent<MovementRecognition>();
+            
+            //Transform CanvasEndGame = transform.Find("CanvasEndGame");
+            //CanvasEndGame.position = new Vector3(CanvasEndGame.position.x, 14.1f, CanvasEndGame.position.z);
+            //CanvasEndGame.rotation = Quaternion.Euler(CanvasEndGame.rotation.x, 180, CanvasEndGame.rotation.z);
         }
 
         VRArmIKController playerModelIKController = PhotonNetwork.Instantiate("Wizard0" + Random.Range(1, 5), XRSetup.transform.position, playerRotation, 0).GetComponent<VRArmIKController>();
@@ -52,6 +64,35 @@ public class GameManager : MonoBehaviourPunCallbacks
         SpellSpawner spellSpawner = PhotonNetwork.Instantiate("Spell Shoot/Spell Cast", Vector3.zero, Quaternion.identity, 0).GetComponent<SpellSpawner>();
         spellSpawner.Target = wand.transform.Find("SpellSpawnPoint").gameObject;
         wand.OnRecognized.AddListener(spellSpawner.Spawn);
+    }
+
+    void Update()
+    {
+        if (!otherPlayer || !myPlayer)
+        {
+            foreach (PlayerGame player in FindObjectsByType<PlayerGame>(FindObjectsSortMode.None))
+            {
+                if (!otherPlayer && !player.photonView.IsMine)
+                    otherPlayer = player;
+                if (!myPlayer && player.photonView.IsMine)
+                    myPlayer = player;
+            }
+        }
+        else if ((myPlayer.Health <= 0 || otherPlayer.Health <= 0) && !wand.blockSpells)
+        {
+            //wand.blockSpells = true;
+            //Transform PanelEndGame = transform.Find("PanelEndGame");
+            //PanelEndGame.gameObject.SetActive(true);
+            //PanelEndGame.Find("Text - Victory").gameObject.SetActive(otherPlayer.Health <= 0);
+            //PanelEndGame.Find("Text - Defeat").gameObject.SetActive(myPlayer.Health <= 0);
+            StartCoroutine(Restart());
+        }
+    }
+
+    IEnumerator Restart()
+    {
+        yield return new WaitForSeconds(4);
+        LeaveRoom();
     }
 
     public override void OnPlayerEnteredRoom(Player other)
@@ -71,6 +112,18 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void LeaveRoom()
     {
+        transform.Find("PanelEndGame")?.gameObject.SetActive(false);
         PhotonNetwork.LeaveRoom();
+    }
+
+    public void StartAgain()
+    {
+        foreach (PlayerGame player in FindObjectsByType<PlayerGame>(FindObjectsSortMode.None))
+        {
+            if (player.photonView.IsMine)
+                player.EditPlayerData(100, PlayerData.Health, ValueEditMode.Set);
+        }
+        wand.blockSpells = false;
+        transform.Find("PanelEndGame")?.gameObject.SetActive(false);
     }
 }

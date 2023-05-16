@@ -17,7 +17,7 @@ public class GameDataKeep : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        if (mainPanel.mapsList[mainPanel.mapIndex] != mapToLoad)
+        if (mainPanel && mainPanel.mapsList[mainPanel.mapIndex] != mapToLoad)
             mapToLoad = mainPanel.mapsList[mainPanel.mapIndex];
     }
 
