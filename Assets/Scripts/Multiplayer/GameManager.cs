@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     IEnumerator Restart()
     {
         yield return new WaitForSeconds(4);
-        LeaveRoom();
+        StartAgain();
     }
 
     public override void OnPlayerEnteredRoom(Player other)
@@ -132,7 +132,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         foreach (PlayerGame player in FindObjectsByType<PlayerGame>(FindObjectsSortMode.None))
         {
             if (player.photonView.IsMine)
+            {
                 player.EditPlayerData(100, PlayerData.Health, ValueEditMode.Set);
+                player.EditPlayerData(100, PlayerData.Mana, ValueEditMode.Set);
+            }
         }
         wand.blockSpells = false;
         transform.Find("PanelEndGame")?.gameObject.SetActive(false);

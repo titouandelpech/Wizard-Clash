@@ -5,8 +5,14 @@ using UnityEngine;
 
 public class ShieldManager : MonoBehaviourPunCallbacks
 {
-    public float timeRemaining = 3;
+    public float timePerShield = 3;
+    private float timeRemaining;
     [SerializeField] private bool isActivate = false;
+
+    void Start()
+    {
+        timeRemaining = timePerShield;
+    }
 
     void Update()
     {
@@ -15,7 +21,7 @@ public class ShieldManager : MonoBehaviourPunCallbacks
                 timeRemaining -= Time.deltaTime;
             }
             else {
-                timeRemaining = 0;
+                timeRemaining = timePerShield;
                 ActivateShield(false);
             }
         }

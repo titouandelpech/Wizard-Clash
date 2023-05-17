@@ -4817,6 +4817,7 @@ MonoBehaviour:
   flash: {fileID: 1477807231266488, guid: 87ad75dca7ceef44bafef0a49761f8fb, type: 3}
   Detached: []
   damage: 5
+  manaCost: 8
   triggered: 0
   curve: {fileID: 0}
   curveTarget: 0

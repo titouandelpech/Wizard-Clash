@@ -32,6 +32,10 @@ public class PlayerGame : MonoBehaviourPunCallbacks
     [SerializeField] private int health;
     [SerializeField] private int mana;
 
+    private float manaTimer;
+    private const float manaAddCooldown = 1f;
+    private const int manaAddValue = 2;
+
     public int Health
     {
         get => health;
@@ -48,6 +52,7 @@ public class PlayerGame : MonoBehaviourPunCallbacks
     {
         Health = MaxHealth;
         Mana = MaxMana;
+        manaTimer = Time.time;
         if (photonView.IsMine)
         {
             Name = PhotonNetwork.LocalPlayer.NickName;
@@ -72,6 +77,11 @@ public class PlayerGame : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             CheckKeyDown();
+        }
+        if (Time.time - manaTimer > manaAddCooldown)
+        {
+            EditPlayerData(manaAddValue, PlayerData.Mana, ValueEditMode.Add);
+            manaTimer = Time.time;
         }
     }
 
@@ -100,7 +110,6 @@ public class PlayerGame : MonoBehaviourPunCallbacks
     [PunRPC]
     void EditPlayerDataRPC(int valueChange, PlayerData changeValue)
     {
-        Debug.Log("Removed " + valueChange + " HP");
         switch (changeValue)
         {
             case PlayerData.Health:

@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ProjectileSet : MonoBehaviourPunCallbacks
@@ -14,6 +15,7 @@ public class ProjectileSet : MonoBehaviourPunCallbacks
     private Rigidbody rb;
     public GameObject[] Detached;
     public int damage;
+    public int manaCost;
     public bool triggered = false;
     private GameObject target;
     private float distance;
