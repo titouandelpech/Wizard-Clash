@@ -6872,7 +6872,7 @@ MonoBehaviour:
   levelName: Multiplayer Test Game
   mapsList:
   - Ice Fields
-  - BDSM Dungeon
+  - Dungeon
   mapIndex: 0
 --- !u!114 &1813453600
 MonoBehaviour:

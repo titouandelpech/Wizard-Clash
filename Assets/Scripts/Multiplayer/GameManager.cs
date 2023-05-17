@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     PlayerGame myPlayer;
     PlayerGame otherPlayer;
     SpellSpawner spellSpawner;
+    bool isMapLoaded = false;
 
     void Start()
     {
@@ -80,11 +81,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (!checkSetter()) return;
         else if ((myPlayer.Health <= 0 || otherPlayer.Health <= 0) && !wand.blockSpells)
         {
-            wand.blockSpells = true;
             Transform PanelEndGame = GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").transform;
             PanelEndGame.gameObject.SetActive(true);
             PanelEndGame.Find("Text - Victory").gameObject.SetActive(otherPlayer.Health <= 0);
             PanelEndGame.Find("Text - Defeat").gameObject.SetActive(myPlayer.Health <= 0);
+            wand.blockSpells = true;
             StartCoroutine(Restart());
         }
     }
@@ -102,6 +103,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (!spellSpawner.ShieldManager && myPlayer)
         {
             spellSpawner.ShieldManager = PhotonNetwork.Instantiate("Shield/Shield", myPlayer.transform.position, myPlayer.transform.rotation).GetComponent<ShieldManager>();
+        }
+        if (!isMapLoaded && gameDataKeep.loadedMap != "")
+        {
+            Instantiate(Resources.Load("Maps/" + gameDataKeep.loadedMap));
+            isMapLoaded = true;
         }
         if (!otherPlayer || !myPlayer || !spellSpawner.ShieldManager) return false;
         return true;
