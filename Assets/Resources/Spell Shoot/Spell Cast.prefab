@@ -53,6 +53,7 @@ MonoBehaviour:
   WallLeft: {fileID: 0}
   WallRight: {fileID: 0}
   WallUp: {fileID: 0}
+  ShieldManager: {fileID: 0}
 --- !u!114 &-8623381592750143318
 MonoBehaviour:
   m_ObjectHideFlags: 0

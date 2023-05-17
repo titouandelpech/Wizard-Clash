@@ -75,7 +75,6 @@ public class ProjectileSet : MonoBehaviourPunCallbacks
                //Debug.Log("pif pas pouf");
                 Destroy(gameObject);
             }
-
         }
    }
 

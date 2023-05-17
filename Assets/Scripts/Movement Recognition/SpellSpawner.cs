@@ -10,7 +10,8 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
     public CollisionZone WallLeft;
     public CollisionZone WallRight;
     public CollisionZone WallUp;
-    // Start is called before the first frame update
+    public ShieldManager ShieldManager;
+
     void Start()
     {
         WallLeft = GameObject.FindWithTag("WallLeft").GetComponent<CollisionZone>();
@@ -18,7 +19,6 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
         WallUp = GameObject.FindWithTag("WallUpHand").GetComponent<CollisionZone>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         

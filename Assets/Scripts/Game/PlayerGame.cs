@@ -60,7 +60,6 @@ public class PlayerGame : MonoBehaviourPunCallbacks
         {
             zone.player = this;
         }
-        //GameObject shield = Instantiate(Resources.Load("Shield/Shield"), transform.parent) as GameObject;
         if (!photonView.IsMine)
         {
             zones.tag = "EnemyZone";

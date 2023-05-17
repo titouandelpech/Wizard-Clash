@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     MovementRecognition wand;
     PlayerGame myPlayer;
     PlayerGame otherPlayer;
+    SpellSpawner spellSpawner;
 
     void Start()
     {
@@ -60,24 +61,15 @@ public class GameManager : MonoBehaviourPunCallbacks
         playerModelIKController.SetTransform(0, copyHands.LeftHandCopy);
         playerModelIKController.SetTransform(1, copyHands.RightHandCopy);
         playerModelIKController.transform.Find(playerModelIKController.gameObject.name.Replace("(Clone)", "")).GetComponent<Renderer>().material = transparentCharacterMaterial; //set own's character material to transparent
-        
-        SpellSpawner spellSpawner = PhotonNetwork.Instantiate("Spell Shoot/Spell Cast", Vector3.zero, Quaternion.identity, 0).GetComponent<SpellSpawner>();
+
+        spellSpawner = PhotonNetwork.Instantiate("Spell Shoot/Spell Cast", Vector3.zero, Quaternion.identity, 0).GetComponent<SpellSpawner>();
         spellSpawner.Target = wand.transform.Find("SpellSpawnPoint").gameObject;
         wand.OnRecognized.AddListener(spellSpawner.Spawn);
     }
 
     void Update()
     {
-        if (!otherPlayer || !myPlayer)
-        {
-            foreach (PlayerGame player in FindObjectsByType<PlayerGame>(FindObjectsSortMode.None))
-            {
-                if (!otherPlayer && !player.photonView.IsMine)
-                    otherPlayer = player;
-                if (!myPlayer && player.photonView.IsMine)
-                    myPlayer = player;
-            }
-        }
+        if (!checkSetter()) return;
         else if ((myPlayer.Health <= 0 || otherPlayer.Health <= 0) && !wand.blockSpells)
         {
             //wand.blockSpells = true;
@@ -88,6 +80,25 @@ public class GameManager : MonoBehaviourPunCallbacks
             StartCoroutine(Restart());
         }
     }
+
+    bool checkSetter()
+    {
+        if (!otherPlayer || !myPlayer)
+        {
+            foreach (PlayerGame player in FindObjectsByType<PlayerGame>(FindObjectsSortMode.None))
+            {
+                otherPlayer = !otherPlayer && !player.photonView.IsMine ? player : otherPlayer;
+                myPlayer = !myPlayer && player.photonView.IsMine ? player : myPlayer;
+            }
+        }
+        if (!spellSpawner.ShieldManager && myPlayer)
+        {
+            spellSpawner.ShieldManager = PhotonNetwork.Instantiate("Shield/Shield", myPlayer.transform.position, myPlayer.transform.rotation).GetComponent<ShieldManager>();
+        }
+        if (!otherPlayer || !myPlayer || !spellSpawner.ShieldManager) return false;
+        return true;
+    }
+
 
     IEnumerator Restart()
     {
