@@ -36,6 +36,8 @@ public class PlayerGame : MonoBehaviourPunCallbacks
     private const float manaAddCooldown = 1f;
     private const int manaAddValue = 2;
 
+    BookFlipper book;
+
     public int Health
     {
         get => health;
@@ -70,6 +72,7 @@ public class PlayerGame : MonoBehaviourPunCallbacks
             zones.tag = "EnemyZone";
             tag = "Target";
         }
+        book = FindObjectOfType<BookFlipper>();
     }
 
     void Update()
@@ -83,6 +86,8 @@ public class PlayerGame : MonoBehaviourPunCallbacks
             EditPlayerData(manaAddValue, PlayerData.Mana, ValueEditMode.Add);
             manaTimer = Time.time;
         }
+        book.UpdateHealthBar(MaxHealth, Health);
+        book.UpdateManaBar(MaxMana, Mana);
     }
 
     void CheckKeyDown()

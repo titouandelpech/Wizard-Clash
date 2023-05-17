@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         else if ((myPlayer.Health <= 0 || otherPlayer.Health <= 0) && !wand.blockSpells)
         {
             Transform PanelEndGame = GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").transform;
+            if (PanelEndGame.gameObject.activeSelf) return;
             PanelEndGame.gameObject.SetActive(true);
             PanelEndGame.Find("Text - Victory").gameObject.SetActive(otherPlayer.Health <= 0);
             PanelEndGame.Find("Text - Defeat").gameObject.SetActive(myPlayer.Health <= 0);

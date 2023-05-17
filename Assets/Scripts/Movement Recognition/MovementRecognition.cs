@@ -5,7 +5,7 @@ using UnityEngine.XR;
 using PDollarGestureRecognizer;
 using System.IO;
 using UnityEngine.Events;
-
+using System.Linq;
 
 public class MovementRecognition : MonoBehaviour
 {
@@ -98,6 +98,7 @@ public class MovementRecognition : MonoBehaviour
                 OnRecognized.Invoke(result.GestureClass);
             }
         }
+        foreach (GameObject obj in FindObjectsOfType<GameObject>().Where(obj => obj.name == "Cube(Clone)")) Destroy(obj);
     }
 
     void UpdateMovement()
