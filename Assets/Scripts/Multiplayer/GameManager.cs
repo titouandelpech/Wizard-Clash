@@ -40,10 +40,14 @@ public class GameManager : MonoBehaviourPunCallbacks
             gameDataKeep.setGameMap(gameDataKeep.mapToLoad);
             XRSetup.transform.position = new Vector3(0, 0, 0);
             wand = PhotonNetwork.Instantiate("Spell Shoot/wand", new Vector3(0.25f, 1.3f, 0.6f), Quaternion.identity, 0).GetComponent<MovementRecognition>();
-            
-            //Transform CanvasEndGame = transform.Find("CanvasEndGame");
-            //CanvasEndGame.position = new Vector3(CanvasEndGame.position.x, 1.9f, CanvasEndGame.position.z);
-            //CanvasEndGame.rotation = Quaternion.Euler(CanvasEndGame.rotation.x, 0, CanvasEndGame.rotation.z);
+
+            GameObject canvasEndGame = GameObject.Find("CanvasEndGame");
+            if (canvasEndGame != null)
+            {
+                Transform canvasTransform = canvasEndGame.transform;
+                canvasTransform.position = new Vector3(canvasTransform.position.x, canvasTransform.position.y, 2.5f);
+                canvasTransform.rotation = Quaternion.Euler(canvasTransform.rotation.x, 0f, canvasTransform.rotation.z);
+            }
         }
         else
         {
@@ -51,10 +55,14 @@ public class GameManager : MonoBehaviourPunCallbacks
             playerRotation = Quaternion.Euler(0, 180, 0);
             XRSetup.transform.rotation = playerRotation;
             wand = PhotonNetwork.Instantiate("Spell Shoot/wand", new Vector3(-0.25f, 1.3f, 15.4f), Quaternion.Euler(0, 180, 0), 0).GetComponent<MovementRecognition>();
-            
-            //Transform CanvasEndGame = transform.Find("CanvasEndGame");
-            //CanvasEndGame.position = new Vector3(CanvasEndGame.position.x, 14.1f, CanvasEndGame.position.z);
-            //CanvasEndGame.rotation = Quaternion.Euler(CanvasEndGame.rotation.x, 180, CanvasEndGame.rotation.z);
+
+            GameObject canvasEndGame = GameObject.Find("CanvasEndGame");
+            if (canvasEndGame != null)
+            {
+                Transform canvasTransform = canvasEndGame.transform;
+                canvasTransform.position = new Vector3(canvasTransform.position.x, canvasTransform.position.y, 13.5f);
+                canvasTransform.rotation = Quaternion.Euler(canvasTransform.rotation.x, 180, canvasTransform.rotation.z);
+            }
         }
 
         VRArmIKController playerModelIKController = PhotonNetwork.Instantiate("Wizard0" + Random.Range(1, 5), XRSetup.transform.position, playerRotation, 0).GetComponent<VRArmIKController>();
@@ -72,11 +80,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (!checkSetter()) return;
         else if ((myPlayer.Health <= 0 || otherPlayer.Health <= 0) && !wand.blockSpells)
         {
-            //wand.blockSpells = true;
-            //Transform PanelEndGame = transform.Find("PanelEndGame");
-            //PanelEndGame.gameObject.SetActive(true);
-            //PanelEndGame.Find("Text - Victory").gameObject.SetActive(otherPlayer.Health <= 0);
-            //PanelEndGame.Find("Text - Defeat").gameObject.SetActive(myPlayer.Health <= 0);
+            wand.blockSpells = true;
+            Transform PanelEndGame = GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").transform;
+            PanelEndGame.gameObject.SetActive(true);
+            PanelEndGame.Find("Text - Victory").gameObject.SetActive(otherPlayer.Health <= 0);
+            PanelEndGame.Find("Text - Defeat").gameObject.SetActive(myPlayer.Health <= 0);
             StartCoroutine(Restart());
         }
     }
@@ -103,6 +111,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     IEnumerator Restart()
     {
         yield return new WaitForSeconds(4);
+        GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").gameObject.SetActive(false);
         StartAgain();
     }
 
