@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CollisionZone : MonoBehaviour
@@ -14,7 +15,7 @@ public class CollisionZone : MonoBehaviour
 
     void OnTriggerEnter(Collider target) {
         Debug.Log("touched " + target.tag);
-        if ((target.tag == "Spell" && transform.parent.tag == "EnemyZone" && zone != 4) || (target.tag == "SpellUp" && transform.parent.tag == "EnemyZone" && zone == 3))
+        if (transform.parent.tag == "EnemyZone" && ((target.tag == "Spell" && zone != 4) || (target.tag == "SpellUp" && zone == 3)))
         {
             ProjectileSet pSet = target.gameObject.GetComponent<ProjectileSet>();
             if (pSet.photonView.IsMine && !pSet.triggered)
@@ -22,7 +23,9 @@ public class CollisionZone : MonoBehaviour
                 pSet.OnCollisionProjectile(target.transform.position, target.transform.forward);
                 foreach (PlayerGame player in FindObjectsByType<PlayerGame>(FindObjectsSortMode.None))
                 {
-                    if (!player.photonView.IsMine && ((player.isZoneLeft && zone == 1) || (player.isZoneRight && zone == 2) || (player.isZoneTop && zone == 3)))
+                    if (!player.photonView.IsMine &&
+                        !FindObjectsOfType<ShieldManager>().Any(shield => !shield.photonView.IsMine && shield.GetIsActivate()) &&
+                        ((player.isZoneLeft && zone == 1) || (player.isZoneRight && zone == 2) || (player.isZoneTop && zone == 3)))
                         player.EditPlayerData(-pSet.damage, PlayerData.Health, ValueEditMode.Add);
                 }
             }

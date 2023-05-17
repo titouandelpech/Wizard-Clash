@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             gameDataKeep.setGameMap(gameDataKeep.mapToLoad);
             XRSetup.transform.position = new Vector3(0, 0, 0);
-            wand = PhotonNetwork.Instantiate("Spell Shoot/wand", new Vector3(0.4f, 1.3f, 1), Quaternion.identity, 0).GetComponent<MovementRecognition>();
+            wand = PhotonNetwork.Instantiate("Spell Shoot/wand", new Vector3(0.25f, 1.3f, 0.6f), Quaternion.identity, 0).GetComponent<MovementRecognition>();
             
             //Transform CanvasEndGame = transform.Find("CanvasEndGame");
             //CanvasEndGame.position = new Vector3(CanvasEndGame.position.x, 1.9f, CanvasEndGame.position.z);
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             XRSetup.transform.position = new Vector3(0, 0, 16);
             playerRotation = Quaternion.Euler(0, 180, 0);
             XRSetup.transform.rotation = playerRotation;
-            wand = PhotonNetwork.Instantiate("Spell Shoot/wand", new Vector3(-0.4f, 1.3f, 15), Quaternion.identity, 0).GetComponent<MovementRecognition>();
+            wand = PhotonNetwork.Instantiate("Spell Shoot/wand", new Vector3(-0.25f, 1.3f, 15.4f), Quaternion.Euler(0, 180, 0), 0).GetComponent<MovementRecognition>();
             
             //Transform CanvasEndGame = transform.Find("CanvasEndGame");
             //CanvasEndGame.position = new Vector3(CanvasEndGame.position.x, 14.1f, CanvasEndGame.position.z);

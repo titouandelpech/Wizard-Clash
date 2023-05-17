@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShieldManager : MonoBehaviourPunCallbacks
 {
     public float timeRemaining = 3;
-    public bool isActivate = false;
+    [SerializeField] private bool isActivate = false;
 
     void Update()
     {
@@ -19,6 +19,11 @@ public class ShieldManager : MonoBehaviourPunCallbacks
                 ActivateShield(false);
             }
         }
+    }
+
+    public bool GetIsActivate()
+    {
+        return isActivate;
     }
 
     [PunRPC]
