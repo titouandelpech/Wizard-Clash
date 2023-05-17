@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objects:
-  - {fileID: 1698648575761504, guid: 92c38e4cf84e3a64b886386e8075ea46, type: 3}
   - {fileID: 1066843573042574, guid: 8d020dd3cc7568646a0f0cb9ca83a3c8, type: 3}
   - {fileID: 1557811069740550, guid: b1b5794928b1b7a4082404034e1fefd6, type: 3}
   Target: {fileID: 0}

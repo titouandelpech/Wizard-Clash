@@ -26,38 +26,42 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
 
     public void Spawn(string objectName)
     {
-        foreach (var item in objects)
-        {
-            if (objectName == item.name)
+        if (objectName == "O") {
+            ShieldManager.ActivateShield(true);
+        } else {
+            foreach (var item in objects)
             {
-                if (PhotonNetwork.OfflineMode) {
-                    GameObject newitem =  Instantiate(item, Target.transform.position,  Target.transform.rotation);
-                    if (objectName != "O") {
-                        if (WallUp.isHandActive == true) {
-                            Debug.Log("tata");
-                            newitem.GetComponent<ProjectileSet>().curveTarget = 3;
-                            newitem.gameObject.tag = "SpellUp";
-                        } else if (WallRight.isHandActive == true) {
-                            Debug.Log("tato");
-                            newitem.GetComponent<ProjectileSet>().curveTarget = 1;
-                        } else {
-                            Debug.Log("toto");
-                            newitem.GetComponent<ProjectileSet>().curveTarget = 2;
+                if (objectName == item.name)
+                {
+                    if (PhotonNetwork.OfflineMode) {
+                        GameObject newitem =  Instantiate(item, Target.transform.position,  Target.transform.rotation);
+                        if (objectName != "O") {
+                            if (WallUp.isHandActive == true) {
+                                Debug.Log("tata");
+                                newitem.GetComponent<ProjectileSet>().curveTarget = 3;
+                                newitem.gameObject.tag = "SpellUp";
+                            } else if (WallRight.isHandActive == true) {
+                                Debug.Log("tato");
+                                newitem.GetComponent<ProjectileSet>().curveTarget = 1;
+                            } else {
+                                Debug.Log("toto");
+                                newitem.GetComponent<ProjectileSet>().curveTarget = 2;
+                            }
                         }
-                    }
-                } if (!PhotonNetwork.OfflineMode) {
-                    GameObject newitem = PhotonNetwork.Instantiate(item.name, Target.transform.position, Target.transform.rotation);
-                    if (objectName != "O") {
-                        if (WallUp.isHandActive == true) {
-                            Debug.Log("tata");
-                            newitem.GetComponent<ProjectileSet>().curveTarget = 3;
-                            newitem.gameObject.tag = "SpellUp";
-                        } else if (WallRight.isHandActive == true) {
-                            Debug.Log("tato");
-                            newitem.GetComponent<ProjectileSet>().curveTarget = 1;
-                        } else {
-                            Debug.Log("toto");
-                            newitem.GetComponent<ProjectileSet>().curveTarget = 2;
+                    } if (!PhotonNetwork.OfflineMode) {
+                        GameObject newitem = PhotonNetwork.Instantiate(item.name, Target.transform.position, Target.transform.rotation);
+                        if (objectName != "O") {
+                            if (WallUp.isHandActive == true) {
+                                Debug.Log("tata");
+                                newitem.GetComponent<ProjectileSet>().curveTarget = 3;
+                                newitem.gameObject.tag = "SpellUp";
+                            } else if (WallRight.isHandActive == true) {
+                                Debug.Log("tato");
+                                newitem.GetComponent<ProjectileSet>().curveTarget = 1;
+                            } else {
+                                Debug.Log("toto");
+                                newitem.GetComponent<ProjectileSet>().curveTarget = 2;
+                            }
                         }
                     }
                 }
