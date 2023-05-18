@@ -194,7 +194,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Deafeat
+  m_Text: Defeat
 --- !u!222 &42373643
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7852,6 +7852,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 80176560}
     m_Modifications:
+    - target: {fileID: 6199171199255760628, guid: f0cbe14d192e8b344b1e29edfb58d775,
+        type: 3}
+      propertyPath: spellNames.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6199171199255760628, guid: f0cbe14d192e8b344b1e29edfb58d775,
+        type: 3}
+      propertyPath: spriteName.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6199171199255760628, guid: f0cbe14d192e8b344b1e29edfb58d775,
         type: 3}
       propertyPath: spellNames.Array.data[0]
