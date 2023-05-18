@@ -4865,7 +4865,7 @@ MonoBehaviour:
   Detached:
   - {fileID: 1274617587750062}
   damage: 10
-  manaCost: 8
+  manaCost: 10
   triggered: 0
   curve: {fileID: 0}
   curveTarget: 0

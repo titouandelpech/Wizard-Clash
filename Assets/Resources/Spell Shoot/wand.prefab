@@ -323,7 +323,7 @@ MonoBehaviour:
     type: 3}
   creationMode: 0
   newGestureName: Projectile 25
-  recognitionThreshold: 0.85
+  recognitionThreshold: 0.8
   OnRecognized:
     m_PersistentCalls:
       m_Calls:

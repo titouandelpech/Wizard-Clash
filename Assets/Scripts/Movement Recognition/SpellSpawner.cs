@@ -31,7 +31,7 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
         PlayerGame myPlayer = FindObjectsOfType<PlayerGame>().FirstOrDefault(player => player.photonView.IsMine);
 
         if (objectName == "O") {
-            int shieldManaCost = 10;
+            int shieldManaCost = 30;
             if (myPlayer.Mana >= shieldManaCost)
                 ShieldManager.ActivateShield(true);
                 myPlayer.EditPlayerData(-shieldManaCost, PlayerData.Mana, ValueEditMode.Add);

@@ -80,14 +80,14 @@ public class PlayerGame : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             CheckKeyDown();
+            book.UpdateHealthBar(MaxHealth, Health);
+            book.UpdateManaBar(MaxMana, Mana);
         }
         if (Time.time - manaTimer > manaAddCooldown)
         {
             EditPlayerData(manaAddValue, PlayerData.Mana, ValueEditMode.Add);
             manaTimer = Time.time;
         }
-        book.UpdateHealthBar(MaxHealth, Health);
-        book.UpdateManaBar(MaxMana, Mana);
     }
 
     void CheckKeyDown()
