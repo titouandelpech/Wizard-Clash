@@ -22,6 +22,7 @@ public class ShieldManager : MonoBehaviourPunCallbacks
             }
             else {
                 timeRemaining = timePerShield;
+                isActivate = false;
                 ActivateShield(false);
             }
         }
