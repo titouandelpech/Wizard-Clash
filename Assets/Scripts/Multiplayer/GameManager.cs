@@ -6,6 +6,8 @@ using TMPro;
 using Photon.Pun.UtilityScripts;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.UI;
+using System.Linq;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -74,6 +76,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         spellSpawner = PhotonNetwork.Instantiate("Spell Shoot/Spell Cast", Vector3.zero, Quaternion.identity, 0).GetComponent<SpellSpawner>();
         spellSpawner.Target = wand.transform.Find("SpellSpawnPoint").gameObject;
         wand.OnRecognized.AddListener(spellSpawner.Spawn);
+        GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").transform.Find("Button - Restart").GetComponent<Button>().onClick.AddListener(WaitForStartAgain);
+        GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").transform.Find("Button - Return to Lobby").GetComponent<Button>().onClick.AddListener(LeaveRoom);
     }
 
     void Update()
@@ -81,13 +85,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (!checkSetter()) return;
         else if ((myPlayer.Health <= 0 || otherPlayer.Health <= 0) && !wand.blockSpells)
         {
-            Transform PanelEndGame = GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").transform;
-            if (PanelEndGame.gameObject.activeSelf) return;
-            PanelEndGame.gameObject.SetActive(true);
-            PanelEndGame.Find("Text - Victory").gameObject.SetActive(otherPlayer.Health <= 0);
-            PanelEndGame.Find("Text - Defeat").gameObject.SetActive(myPlayer.Health <= 0);
-            wand.blockSpells = true;
-            StartCoroutine(Restart());
+            DisplayEndGameMenu();
+        }
+        else if (myPlayer.Health == 100 && otherPlayer.Health == 100 && wand.blockSpells)
+        {
+            StartAgain();
         }
     }
 
@@ -112,6 +114,17 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         if (!otherPlayer || !myPlayer || !spellSpawner.ShieldManager) return false;
         return true;
+    }
+
+    void DisplayEndGameMenu()
+    {
+        Transform PanelEndGame = GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").transform;
+        if (PanelEndGame.gameObject.activeSelf) return;
+        PanelEndGame.gameObject.SetActive(true);
+        PanelEndGame.Find("Text - Victory").gameObject.SetActive(otherPlayer.Health <= 0);
+        PanelEndGame.Find("Text - Defeat").gameObject.SetActive(myPlayer.Health <= 0);
+        wand.blockSpells = true;
+        //StartCoroutine(Restart());
     }
 
 
@@ -139,11 +152,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void LeaveRoom()
     {
-        transform.Find("PanelEndGame")?.gameObject.SetActive(false);
+        Destroy(FindObjectOfType<GameDataKeep>().gameObject);
+        Destroy(GameObject.Find("Complete XR Origin Set Up"));
+        Destroy(GameObject.Find("XR Device Simulator"));
+        GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").gameObject.SetActive(false);
+        FindObjectsOfType<CopyHandData>().Where(copyHandData => copyHandData.photonView.IsMine).ToList().ForEach(Destroy);
         PhotonNetwork.LeaveRoom();
     }
 
-    public void StartAgain()
+    public void WaitForStartAgain()
     {
         foreach (PlayerGame player in FindObjectsByType<PlayerGame>(FindObjectsSortMode.None))
         {
@@ -153,7 +170,20 @@ public class GameManager : MonoBehaviourPunCallbacks
                 player.EditPlayerData(100, PlayerData.Mana, ValueEditMode.Set);
             }
         }
+        GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").transform.Find("Text - Victory").gameObject.SetActive(false);
+        GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").transform.Find("Text - Defeat").gameObject.SetActive(false);
+        GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").transform.Find("Button - Restart").gameObject.SetActive(false);
+        GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").transform.Find("Button - Return to Lobby").gameObject.SetActive(false);
+        GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").transform.Find("Text - Waiting").gameObject.SetActive(true);
+
+    }
+
+    public void StartAgain()
+    {
         wand.blockSpells = false;
-        transform.Find("PanelEndGame")?.gameObject.SetActive(false);
+        GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").transform.Find("Button - Restart").gameObject.SetActive(true);
+        GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").transform.Find("Button - Return to Lobby").gameObject.SetActive(true);
+        GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").transform.Find("Text - Waiting").gameObject.SetActive(false);
+        GameObject.Find("CanvasEndGame").transform.Find("MainPanel").Find("PanelEndGame").gameObject.SetActive(false);
     }
 }

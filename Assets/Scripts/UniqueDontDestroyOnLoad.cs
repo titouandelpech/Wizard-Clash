@@ -7,6 +7,10 @@ public class UniqueDontDestroyOnLoad : MonoBehaviour
 
     void Awake()
     {
+        if (instances.ContainsKey(gameObject.name) && instances[gameObject.name] == null)
+        {
+            instances.Remove(gameObject.name);
+        }
         if (!instances.ContainsKey(gameObject.name))
         {
             instances.Add(gameObject.name, this);
