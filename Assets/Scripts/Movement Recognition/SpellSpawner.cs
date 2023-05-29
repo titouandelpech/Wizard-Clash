@@ -13,23 +13,37 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
     public CollisionZone WallRight;
     public CollisionZone WallUp;
     public ShieldManager ShieldManager;
+    public GameObject _wand;
+    private float rotationY;
+    private float rotationX;
 
     void Start()
     {
         WallLeft = GameObject.FindWithTag("WallLeft").GetComponent<CollisionZone>();
         WallRight = GameObject.FindWithTag("WallRight").GetComponent<CollisionZone>();
         WallUp = GameObject.FindWithTag("WallUpHand").GetComponent<CollisionZone>();
+        _wand = GameObject.FindWithTag("Wand");
     }
 
     void Update()
     {
-        
+        Debug.Log("Angle x : " + _wand.GetComponent<Transform>().eulerAngles.x);
+        Debug.Log("Angle y : " + _wand.GetComponent<Transform>().eulerAngles.y);
+       
+        //Debug.Log("rotationY : " + rotationY);
+        //Debug.Log("rotationX : " + rotationY);
     }
 
     public void Spawn(string objectName)
     {
         PlayerGame myPlayer = FindObjectsOfType<PlayerGame>().FirstOrDefault(player => player.photonView.IsMine);
 
+        rotationY = _wand.GetComponent<Transform>().eulerAngles.y;
+        rotationX = _wand.GetComponent<Transform>().eulerAngles.x;
+        if (rotationY > 180)
+           rotationY -= 360;
+        if (rotationX > 180)
+           rotationX -= 360;
         if (objectName == "O") {
             int shieldManaCost = 20;
             if (myPlayer.Mana >= shieldManaCost)
@@ -43,7 +57,17 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
                     if (PhotonNetwork.OfflineMode) {
                         GameObject newitem =  Instantiate(item, Target.transform.position,  Target.transform.rotation);
                         if (objectName != "O") {
-                            if (WallUp.isHandActive == true) {
+                            //poignet
+                            if (rotationX <= -40) {
+                                newitem.GetComponent<ProjectileSet>().curveTarget = 3;
+                                newitem.gameObject.tag = "SpellUp";
+                            } else if (rotationY <= -30) {
+                                newitem.GetComponent<ProjectileSet>().curveTarget = 2;
+                            } else if (rotationY >= 30){
+                                newitem.GetComponent<ProjectileSet>().curveTarget = 1;
+                            }
+                            //position de la main
+                            else if (WallUp.isHandActive == true) {
                                 Debug.Log("tata");
                                 newitem.GetComponent<ProjectileSet>().curveTarget = 3;
                                 newitem.gameObject.tag = "SpellUp";
@@ -66,7 +90,17 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
                                 myPlayer.EditPlayerData(-pSet.manaCost, PlayerData.Mana, ValueEditMode.Add);
                         }
                         if (objectName != "O") {
-                            if (WallUp.isHandActive == true) {
+                            //Debug.Log("Angle x : " + _wand.GetComponent<Transform>().EulerAngles.x);
+                            //Debug.Log("Angle y : " + _wand.GetComponent<Transform>().EulerAngles.y);
+                             if (rotationX <= -40) {
+                                newitem.GetComponent<ProjectileSet>().curveTarget = 3;
+                                newitem.gameObject.tag = "SpellUp";
+                            } else if (rotationY <= -30) {
+                                newitem.GetComponent<ProjectileSet>().curveTarget = 2;
+                            } else if (rotationY >= 30){
+                                newitem.GetComponent<ProjectileSet>().curveTarget = 1;
+                            }
+                            else if (WallUp.isHandActive == true) {
                                 Debug.Log("tata");
                                 pSet.curveTarget = 3;
                                 newitem.gameObject.tag = "SpellUp";
@@ -74,7 +108,7 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
                                 Debug.Log("tato");
                                 pSet.curveTarget = 1;
                             } else {
-                                Debug.Log("toto");
+                                Debug.Log("toto22");
                                 pSet.curveTarget = 2;
                             }
                         }
