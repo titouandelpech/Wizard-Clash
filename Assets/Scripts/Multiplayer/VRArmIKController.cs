@@ -21,7 +21,7 @@ public class VRArmIKController : MonoBehaviourPunCallbacks
         if (!photonView.IsMine) return;
         animator.SetBool("crouched", !playerGame.isZoneTop);
         Debug.Log((transform.position - lastPos).magnitude);
-        if ((transform.position - lastPos).magnitude > 0)
+        if ((transform.position - lastPos).magnitude > 0.01)
         {
             if (Mathf.Abs(lastPos.x - transform.position.x) > Mathf.Abs(lastPos.z - transform.position.z))
             {
