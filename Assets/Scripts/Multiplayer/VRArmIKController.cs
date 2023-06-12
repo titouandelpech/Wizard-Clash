@@ -7,6 +7,58 @@ public class VRArmIKController : MonoBehaviourPunCallbacks
     public Transform leftHandTarget;
     public Transform rightHandTarget;
 
+    [SerializeField] PlayerGame playerGame;
+
+    Vector3 lastPos;
+
+    void Start()
+    {
+        lastPos = transform.position;
+    }
+
+    void Update()
+    {
+        if (!photonView.IsMine) return;
+        animator.SetBool("crouched", !playerGame.isZoneTop);
+        Debug.Log((transform.position - lastPos).magnitude);
+        if ((transform.position - lastPos).magnitude > 0)
+        {
+            if (Mathf.Abs(lastPos.x - transform.position.x) > Mathf.Abs(lastPos.z - transform.position.z))
+            {
+                if (lastPos.x < transform.position.x)
+                {
+                    animator.SetFloat("Move left", 1f);
+                }
+                else if (lastPos.x > transform.position.x)
+                {
+                    animator.SetFloat("Move left", -1f);
+                }
+                animator.SetFloat("Move front", 0);
+            }
+            else
+            {
+                if (lastPos.z < transform.position.z)
+                {
+                    animator.SetFloat("Move front", 1f);
+                }
+                else if (lastPos.z > transform.position.z)
+                {
+                    animator.SetFloat("Move front", -1f);
+                }
+                animator.SetFloat("Move left", 0);
+            }
+        }
+        else
+        {
+            animator.SetFloat("Move front", 0);
+            animator.SetFloat("Move left", 0);
+        }
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        if (!stateInfo.IsName("Idle01") && !stateInfo.IsName("To Idle02") && !stateInfo.IsName("Idle02") && !stateInfo.IsName("To Idle01") && animator.GetFloat("Move front") == 0 && animator.GetFloat("Move front") == 0 && !animator.GetBool("crouched"))
+            animator.SetTrigger("idle");
+        lastPos = transform.position;
+    }
+
     private void OnAnimatorIK(int layerIndex)
     {
         if (!leftHandTarget || !rightHandTarget) return;

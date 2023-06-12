@@ -63,6 +63,7 @@ public class PlayerGame : MonoBehaviourPunCallbacks
         }
         playerNameText.UpdateText("<color=red>" + Health + "/" + MaxHealth + "</color>");
         GameObject zones = Instantiate(Resources.Load("PrefabEsquive/ZoneDodge"), transform.parent) as GameObject;
+        zones.transform.SetParent(null);
         foreach(CollisionZone zone in zones.transform.GetComponentsInChildren<CollisionZone>())
         {
             zone.player = this;
