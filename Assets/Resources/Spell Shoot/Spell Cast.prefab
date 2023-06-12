@@ -48,6 +48,7 @@ MonoBehaviour:
   objects:
   - {fileID: 1066843573042574, guid: 8d020dd3cc7568646a0f0cb9ca83a3c8, type: 3}
   - {fileID: 1557811069740550, guid: b1b5794928b1b7a4082404034e1fefd6, type: 3}
+  - {fileID: 1980571578861810, guid: e7b653ec4ab1bf440ac9c25e09cbe9f6, type: 3}
   Target: {fileID: 0}
   WallLeft: {fileID: 0}
   WallRight: {fileID: 0}
