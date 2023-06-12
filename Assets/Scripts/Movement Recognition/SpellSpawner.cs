@@ -1,4 +1,6 @@
 using Photon.Pun;
+using Photon.Realtime;
+using Photon.Pun.UtilityScripts;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +46,8 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
            rotationY -= 360;
         if (rotationX > 180)
            rotationX -= 360;
+        Debug.Log("rotationY : " + rotationY);
+        Debug.Log("rotationX : " + rotationX);
         if (objectName == "O") {
             int shieldManaCost = 20;
             if (myPlayer.Mana >= shieldManaCost)
@@ -96,9 +100,20 @@ public class SpellSpawner : MonoBehaviourPunCallbacks
                                 newitem.GetComponent<ProjectileSet>().curveTarget = 3;
                                 newitem.gameObject.tag = "SpellUp";
                             } else if (rotationY <= -30) {
-                                newitem.GetComponent<ProjectileSet>().curveTarget = 2;
+                                if (PhotonNetwork.LocalPlayer.GetPlayerNumber() == 0) {
+                                    newitem.GetComponent<ProjectileSet>().curveTarget = 2;
+                                }
+                                else { 
+                                    newitem.GetComponent<ProjectileSet>().curveTarget = 1;
+                                }
                             } else if (rotationY >= 30){
-                                newitem.GetComponent<ProjectileSet>().curveTarget = 1;
+                                if (PhotonNetwork.LocalPlayer.GetPlayerNumber() == 0) {
+                                    newitem.GetComponent<ProjectileSet>().curveTarget = 1;
+                                }
+                                else {
+                                    newitem.GetComponent<ProjectileSet>().curveTarget = 2;
+                                }
+                                //newitem.GetComponent<ProjectileSet>().curveTarget = 1;
                             }
                             else if (WallUp.isHandActive == true) {
                                 Debug.Log("tata");
